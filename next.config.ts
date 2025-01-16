@@ -6,9 +6,9 @@ const nextConfig: NextConfig = {
       {
         protocol: "http",
         hostname: process.env.DOMAIN!,
-      }
-    ]
-  }
+      },
+    ],
+  },
 };
 
 export default nextConfig;
