@@ -81,6 +81,18 @@ export const TransactionResponseSchema = z.object({
   contents: z.array(ContentsSchema),
 });
 
+export const ProductFormSchema = z.object({
+  productName: z.string()
+          .min(1, {message: 'El Nombre del Producto no puede ir vacio'}),
+  description: z.string()
+          .min(1, {message: 'La Descripción del Producto no puede ir vacia'}),
+  price: z.coerce.number({message: 'Precio no válido'})
+          .min(1, {message: 'El Precio debe ser mayor a 0'}),
+  inventory: z.coerce.number({message: 'Inventario no válido'})
+          .min(1, {message: 'El inventario debe ser mayor a 0'}),
+  categoryId: z.coerce.number({message: 'La Categoria no es válida'})
+})
+
 export const TransactionsResponseSchema = z.array(TransactionResponseSchema);
 
 export type Product = z.infer<typeof ProductSchema>;

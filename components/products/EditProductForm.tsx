@@ -1,16 +1,19 @@
 "use client";
 
-import { addProduct } from "@/actions/add-product-action";
-import { useRouter } from "next/navigation";
-import { useActionState, useEffect } from "react";
+
+import { updateProduct } from "@/actions/update-product-action";
+import { useParams, useRouter } from "next/navigation";
+import { useActionState } from "react";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 
-export default function AddProductoForm({children}: {children: React.ReactNode}) {
+export default function EditProductForm({children}: {children: React.ReactNode}) {
   
 
   const router = useRouter();
-
-  const [state, dispatch] = useActionState(addProduct, {
+  const {id} = useParams<{id: string}>();
+  const updateProductwithId = updateProduct.bind(null, +id);
+  const [state, dispatch] = useActionState(updateProductwithId, {
     errors: [],
     success: ''
   })
@@ -24,6 +27,7 @@ export default function AddProductoForm({children}: {children: React.ReactNode})
       router.push('/admin/products')
     }
   }, [state])
+
   
   return (
     <form
@@ -34,7 +38,7 @@ export default function AddProductoForm({children}: {children: React.ReactNode})
         <input
             type="submit"
             className="rounded bg-green-400 font-bold py-2 w-full cursor-pointer"
-            value="Agregar Producto"
+            value="Guardar Cambios"
         />
     </form>
   )
