@@ -1,14 +1,14 @@
 import { Product } from "@/src/schemas";
-import { formatCurrency } from "@/src/utils";
+import { formatCurrency, getImagePath, isAviable } from "@/src/utils";
 import Image from "next/image";
 import AddProductButton from "./AddProductButton";
 
 export default function ProductCard({ product }: { product: Product }) {
   return (
     <div className="rounded bg-white shadow relative p-5">
-      <div>
+      <div className={`${!isAviable(product.inventory) && "opacity-50"}`}>
         <Image
-          src={`${process.env.API_URL}/img/${product.image}`}
+          src={getImagePath(product.image)}
           alt={`Imagen de producto ${product.productName}`}
           width={400}
           height={600}
@@ -25,7 +25,13 @@ export default function ProductCard({ product }: { product: Product }) {
           </p>
         </div>
       </div>
-      <AddProductButton product={product} />
+      {isAviable(product.inventory) ? (
+        <AddProductButton product={product} />
+      ) : (
+        <p className="absolute top-0 right-0 bg-red-600 text-white font-bold p-2 rounded-bl-lg">
+          Agotado
+        </p>
+      )}
     </div>
   );
 }

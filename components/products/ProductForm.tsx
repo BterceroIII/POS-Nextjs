@@ -1,4 +1,5 @@
 import { CategoriesResonseSchema, Product } from "@/src/schemas";
+import UploadProductImage from "./UploadProductImage";
 
 async function getCategories() {
   const url = `${process.env.API_URL}/category`;
@@ -8,17 +9,15 @@ async function getCategories() {
   return categories;
 }
 
-export default async function ProductForm({product}: {product?: Product}) {
-
+export default async function ProductForm({ product }: { product?: Product }) {
   const categories = await getCategories();
 
   return (
     <>
       <div className="space-y-2 ">
-        <label
-          htmlFor="productName"
-          className="block"
-        >Nombre Producto</label>
+        <label htmlFor="productName" className="block">
+          Nombre Producto
+        </label>
         <input
           id="productName"
           type="text"
@@ -28,12 +27,11 @@ export default async function ProductForm({product}: {product?: Product}) {
           defaultValue={product?.productName}
         />
       </div>
-      
+
       <div className="space-y-2 ">
-        <label
-          htmlFor="description"
-          className="block"
-        >Descripción</label>
+        <label htmlFor="description" className="block">
+          Descripción
+        </label>
         <textarea
           id="description"
           placeholder="Descripción Producto"
@@ -44,10 +42,9 @@ export default async function ProductForm({product}: {product?: Product}) {
       </div>
 
       <div className="space-y-2 ">
-        <label
-          htmlFor="price"
-          className="block"
-        >Precio</label>
+        <label htmlFor="price" className="block">
+          Precio
+        </label>
         <input
           id="price"
           type="number"
@@ -60,10 +57,9 @@ export default async function ProductForm({product}: {product?: Product}) {
       </div>
 
       <div className="space-y-2 ">
-        <label
-          htmlFor="inventory"
-          className="block"
-        >Inventario</label>
+        <label htmlFor="inventory" className="block">
+          Inventario
+        </label>
         <input
           id="inventory"
           type="number"
@@ -76,10 +72,9 @@ export default async function ProductForm({product}: {product?: Product}) {
       </div>
 
       <div className="space-y-2 ">
-        <label
-          htmlFor="categoryId"
-          className="block"
-        >Categoría</label>
+        <label htmlFor="categoryId" className="block">
+          Categoría
+        </label>
         <select
           id="categoryId"
           className="border border-gray-300 w-full p-2 bg-white"
@@ -87,12 +82,15 @@ export default async function ProductForm({product}: {product?: Product}) {
           defaultValue={product?.categoryId}
         >
           <option value="">Seleccionar Categoría</option>
-          {categories.map(category => (
-            <option key={category.id} value={category.id}>{category.name}</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
           ))}
         </select>
       </div>
 
+      <UploadProductImage currentImage={product?.image} />
     </>
-  )
+  );
 }

@@ -1,45 +1,42 @@
 "use client";
 
-
 import { updateProduct } from "@/actions/update-product-action";
 import { useParams, useRouter } from "next/navigation";
 import { useActionState } from "react";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
-export default function EditProductForm({children}: {children: React.ReactNode}) {
-  
-
+export default function EditProductForm({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const router = useRouter();
-  const {id} = useParams<{id: string}>();
+  const { id } = useParams<{ id: string }>();
   const updateProductwithId = updateProduct.bind(null, +id);
   const [state, dispatch] = useActionState(updateProductwithId, {
     errors: [],
-    success: ''
-  })
+    success: "",
+  });
 
   useEffect(() => {
-    if(state.errors){
-      state.errors.forEach(error => toast.error(error))
+    if (state.errors) {
+      state.errors.forEach((error) => toast.error(error));
     }
-    if(state.success){
-      toast.success(state.success)
-      router.push('/admin/products')
+    if (state.success) {
+      toast.success(state.success);
+      router.push("/admin/products");
     }
-  }, [state])
+  }, [state]);
 
-  
   return (
-    <form
-      className="space-y-5"
-      action={dispatch}
-    >
-        {children}
-        <input
-            type="submit"
-            className="rounded bg-green-400 font-bold py-2 w-full cursor-pointer"
-            value="Guardar Cambios"
-        />
+    <form className="space-y-5" action={dispatch}>
+      {children}
+      <input
+        type="submit"
+        className="rounded bg-green-400 font-bold py-2 w-full cursor-pointer"
+        value="Guardar Cambios"
+      />
     </form>
-  )
+  );
 }

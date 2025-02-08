@@ -1,15 +1,15 @@
 import Link from "next/link";
 
 type PaginationProps = {
-    page: number;
-    totalPages: number;
-    baseUrl: string;
-}
+  page: number;
+  totalPages: number;
+  baseUrl: string;
+};
 
 export default function Pagination({
   page,
   totalPages,
-  baseUrl
+  baseUrl,
 }: PaginationProps) {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
@@ -34,14 +34,14 @@ export default function Pagination({
         </Link>
       ))}
 
-        {page < totalPages && (
-            <Link
-                href={`${baseUrl}?page=${page + 1}`}
-                className="px-4 py-2 mx-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
-            >
-                &raquo;
-            </Link>
-        )}
+      {page < totalPages && (
+        <Link
+          href={`${baseUrl}?page=${page + 1}`}
+          className="px-4 py-2 mx-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
+        >
+          &raquo;
+        </Link>
+      )}
     </nav>
   );
 }

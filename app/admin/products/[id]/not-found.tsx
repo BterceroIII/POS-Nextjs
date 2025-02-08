@@ -1,15 +1,17 @@
-import Heading from '@/components/UI/Heading'
-import Link from 'next/link'
+import Heading from "@/components/UI/Heading";
+import Link from "next/link";
 
 export default function NotFound() {
   return (
+    <div className="text-center">
+      <Heading>Producto no encontrado</Heading>
 
-    <div className='text-center'>
-        <Heading>Producto no encontrado</Heading>
-
-        <p>Tal vez quieras volver a {''} 
-          <Link className='text-green-400' href={'/admin/products?page=1'}>Productos</Link>
-        </p>
+      <p>
+        Tal vez quieras volver a {""}
+        <Link className="text-green-400" href={"/admin/products?page=1"}>
+          Productos
+        </Link>
+      </p>
     </div>
-  )
+  );
 }

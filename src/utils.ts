@@ -9,8 +9,8 @@ export function isValidPage(value: number) {
   if (value == null) {
     return false;
   }
-  
-  if (typeof value !== 'number' && isNaN(value)) {
+
+  if (typeof value !== "number" && isNaN(value)) {
     return false;
   }
   if (value <= 0) {
@@ -23,3 +23,18 @@ export function isValidPage(value: number) {
 
   return true;
 }
+
+export function getImagePath(image: string) {
+  const cloudinaryUrl = "https://res.cloudinary.com";
+  if (image.startsWith(cloudinaryUrl)) {
+    return image;
+  } else {
+    if (process.env.API_URL) {
+      return `${process.env.API_URL}/img/${image}`;
+    } else {
+      return `${process.env.NEXT_PUBLIC_API_URL}/img/${image}`;
+    }
+  }
+}
+
+export const isAviable = (inventory: number) => inventory > 0;
